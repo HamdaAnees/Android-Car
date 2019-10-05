@@ -1,0 +1,182 @@
+//Motor A
+int ENA = 9;
+int in1 = 7;
+int in2 = 6;
+//Motor B
+int ENB =10;
+int in3 = 4;
+int in4 = 5;
+int Motorspeed=110;                 
+int turn=20;                        
+char command;
+void setup() {
+  Serial.begin(9600); 
+  pinMode(in1, OUTPUT);
+  pinMode(in2, OUTPUT);
+  pinMode(in3, OUTPUT);
+  pinMode(in4, OUTPUT);
+  pinMode(ENA, OUTPUT);
+  pinMode(ENB, OUTPUT);                  
+}
+void loop(){ 
+  if (Serial.available()){
+    Serial.println("Device Connected!");                         
+    command = Serial.read();
+    delay(10);
+  }
+    if (command == 'S')
+    {
+      Stop();
+    } 
+    else if (command =='F')
+    {
+      forward();
+      delay(20);
+    }
+    else if (command == 'B')
+    {
+      back();
+      delay(20);
+    }
+    else if (command =='L')
+    {
+      left();
+      delay(20);
+    }
+    else if (command =='R')
+    {
+      right();
+      delay(20);
+    }
+    else if(command == 'G')
+    {
+      forwardleft();
+      delay(20);
+    }
+    else if(command == 'H')
+    {
+      backleft();
+      delay(20);
+    }
+     else if(command == 'I')
+    {
+      forwardright();
+      delay(20);
+    }
+     else if(command == 'J')
+    {
+      backright();
+      delay(20);
+    }
+    else 
+    {
+      Stop();
+    }
+}
+void forward() {
+  Serial.println("Move foward");
+  analogWrite(ENB, Motorspeed);
+  analogWrite(ENA, Motorspeed);
+  digitalWrite(in1, LOW);
+  digitalWrite(in2, HIGH);
+  digitalWrite(in3, LOW);
+  digitalWrite(in4, HIGH);
+}
+void back() {
+  Serial.println("Move Back");
+  analogWrite(ENB, Motorspeed);
+  analogWrite(ENA, Motorspeed);
+  digitalWrite(in1, HIGH);
+  digitalWrite(in2, LOW);
+  digitalWrite(in3, HIGH);
+  digitalWrite(in4, LOW);
+}
+void left() {
+  Serial.println("Move Left");
+  analogWrite(ENA,Motorspeed-turn);
+  analogWrite(ENB,Motorspeed+turn);
+  digitalWrite(in1,HIGH);
+  digitalWrite(in2,LOW);
+  digitalWrite(in3,LOW);
+  digitalWrite(in4,HIGH);
+}
+void right() {
+  Serial.println("Move Right");
+  analogWrite(ENA,Motorspeed+turn);
+  analogWrite(ENB,Motorspeed-turn);
+  digitalWrite(in1,LOW);
+  digitalWrite(in2,HIGH);
+  digitalWrite(in3,HIGH);
+  digitalWrite(in4,LOW);
+}
+void Stop() {
+  Serial.println("Stop");
+  analogWrite(ENA,0);
+  analogWrite(ENB,0);
+  digitalWrite(in1, LOW);
+  digitalWrite(in2, LOW);
+  digitalWrite(in3, LOW);
+  digitalWrite(in4, LOW);
+}
+void forwardleft() {
+  Serial.println("Move Foward-Left");
+  analogWrite(ENA, Motorspeed-turn);
+  analogWrite(ENB,Motorspeed);
+  digitalWrite(in1, LOW);
+  digitalWrite(in2, HIGH);
+  digitalWrite(in3, LOW);
+  digitalWrite(in4, HIGH);
+}
+void forwardright() {
+  Serial.println("Move Foward-Right");
+  analogWrite(ENA, Motorspeed);
+  analogWrite(ENB,Motorspeed-turn);
+  digitalWrite(in1, LOW);
+  digitalWrite(in2, HIGH);
+  digitalWrite(in3, LOW);
+  digitalWrite(in4, HIGH);
+}
+void backright()
+{
+  Serial.println("Move Back-Right");
+  analogWrite(ENA, Motorspeed);
+  analogWrite(ENB,Motorspeed-turn);
+  digitalWrite(in1, HIGH);
+  digitalWrite(in2, LOW);
+  digitalWrite(in3, HIGH);
+  digitalWrite(in4, LOW);
+}
+void backleft()
+{
+  Serial.println("Move Back-Left");
+  analogWrite(ENA, Motorspeed-turn);
+  analogWrite(ENB,Motorspeed);
+  digitalWrite(in1, HIGH);
+  digitalWrite(in2, LOW);
+  digitalWrite(in3, HIGH);
+  digitalWrite(in4, LOW);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
